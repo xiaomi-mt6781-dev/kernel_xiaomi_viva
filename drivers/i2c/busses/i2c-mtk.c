@@ -591,6 +591,9 @@ static int i2c_set_speed(struct mt_i2c *i2c, unsigned int clk_src_in_hz)
 #ifdef I2C_DEBUG_FS
 void i2c_dump_info1(struct mt_i2c *i2c)
 {
+	if (i2c->id == 3)
+		return;
+
 	if (i2c->ext_data.isEnable && i2c->ext_data.timing)
 		dev_info(i2c->dev, "I2C structure:\nspeed %d\n",
 			i2c->ext_data.timing);
@@ -635,6 +638,9 @@ void i2c_dump_info1(struct mt_i2c *i2c)
 
 void i2c_dump_info(struct mt_i2c *i2c)
 {
+	if (i2c->id == 3)
+		return;
+
 	/* I2CFUC(); */
 	/* int val=0; */
 	pr_info_ratelimited("%s: +++++++++++++++++++\n", __func__);
