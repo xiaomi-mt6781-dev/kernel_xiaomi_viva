@@ -37,6 +37,7 @@
 #include "mtk_drm_mmp.h"
 #include "mtk_drm_fbdev.h"
 #include "mtk_drm_trace.h"
+#include "mi_disp_esd_check.h"
 #include "mtk_dump.h"
 
 #ifdef CONFIG_MTK_MT6382_BDG
@@ -46,6 +47,7 @@
 
 #define ESD_TRY_CNT 5
 #define ESD_CHECK_PERIOD 2000 /* ms */
+static atomic_t panel_dead;
 
 /* pinctrl implementation */
 long _set_state(struct drm_crtc *crtc, const char *name)
@@ -693,3 +695,13 @@ void mtk_disp_chk_recover_init(struct drm_crtc *crtc)
 	    drm_crtc_index(&mtk_crtc->base) == 0)
 		mtk_disp_esd_chk_init(crtc);
 }
+
+int get_panel_dead_flag(void) {
+	return atomic_read(&panel_dead);
+}
+EXPORT_SYMBOL(get_panel_dead_flag);
+
+int set_panel_dead_flag(int value) {
+	return atomic_set(&panel_dead, value);
+}
+EXPORT_SYMBOL(set_panel_dead_flag);
