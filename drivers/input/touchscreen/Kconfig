@@ -1126,6 +1126,13 @@ config TOUCHSCREEN_STMFTS
 
 	  To compile this driver as a module, choose M here: the
 	  module will be called stmfts.
+	  
+config TOUCHSCREEN_FTS
+    bool "Focaltech Touchscreen"
+    default n
+    help
+      Say Y here if you have Focaltech touch panel.
+      If unsure, say N.
 
 config TOUCHSCREEN_STMPE
 	tristate "STMicroelectronics STMPE touchscreens"
